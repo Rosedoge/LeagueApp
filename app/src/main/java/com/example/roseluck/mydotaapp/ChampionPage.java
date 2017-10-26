@@ -183,6 +183,7 @@ public class ChampionPage extends AppCompatActivity {
         }
         return ret;
     }
+
     //Gets all the official data that a hero has on them. A much more stringent JSON element than the other one.
     private class DownloadHeroData extends AsyncTask<Void, Void, String> {
         private String URL;
@@ -224,7 +225,6 @@ public class ChampionPage extends AppCompatActivity {
 
                 while ((line = reader.readLine()) != null) {
                     buffer.append(line+"\n");
-                   // Log.d("Response: ", "> " + line);   //here u ll get whole response...... :-)
 
                 }
 
@@ -267,7 +267,7 @@ public class ChampionPage extends AppCompatActivity {
         return ret;
 
     }
-
+    //Downloads the bitmap of the abilities
     private class DownloadAbilityBitmap extends AsyncTask<Void, Void, Bitmap> {
         private String URL;
         private int type;
@@ -305,7 +305,7 @@ public class ChampionPage extends AppCompatActivity {
         }
     }
 
-
+    //Gets the Champ Image
     private class DownloadFilesTask extends AsyncTask<Void, Void, Bitmap> {
         private String URL;
         private int type;

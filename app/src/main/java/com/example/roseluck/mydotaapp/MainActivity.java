@@ -95,18 +95,21 @@ public class MainActivity extends AppCompatActivity {
 
             BufferedReader reader;
             reader = new BufferedReader(new InputStreamReader(file));
-            String line = reader.readLine();
+            String line = "";
             int count = 0;
 
             while(line != null){
                 //Log.d("StackOverflow", line);
 
                 line = reader.readLine();
-                DownloadFilesTask task = new DownloadFilesTask(this,line,count);
+                //Gets the Champion's Image
+                //DownloadFilesTask task = new DownloadFilesTask(this,line,count);
+
                 //gets the hero name of each hero
                 champions.add(count, GetHeroNames(returnedJSON, line));
 
                 try {
+                    //Gets the Champion's Image
                     championImages.add(count,new DownloadFilesTask(this,line,count).execute().get());
                 }catch(InterruptedException e) {
                 }
@@ -161,9 +164,6 @@ public class MainActivity extends AppCompatActivity {
             type = Type;
             DownloadFilesTask.this.context = context;
         }
-
-
-
 
 
         protected Bitmap doInBackground(Void... params) {
