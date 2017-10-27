@@ -1,11 +1,18 @@
 package com.example.roseluck.mydotaapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,6 +22,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Roseluck on 10/26/2017.
@@ -42,10 +51,12 @@ public class SummonerSearch extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
                 String myString = "";
+                 EditText txtDescription = (EditText)findViewById(R.id.etSummoner);
+                String string = txtDescription.getText().toString();
                 try{
-                    myString = new DownloadSummonerData(myBasicSummoner,0).execute().get();
+                    myString = new DownloadSummonerData(string,0).execute().get();
                 }catch(InterruptedException e) {
                     myString = null;
                 }
@@ -54,19 +65,70 @@ public class SummonerSearch extends AppCompatActivity {
                     myString = null;
                 }
 
+                AssembleSummoner(myString);
+
             }
         });
+
+
 
     }
 
     String FormatInputString(String inputName){
 
-        inputName = inputName.replace(" ","%20");
+        Pattern regex = Pattern.compile("[^A-Za-z0-9]\\p{L}");
+        Matcher matcher = regex.matcher(inputName); //this means it's standard keyboard and stuff
+        if (matcher.find()){
+            // Do something
+            regex = Pattern.compile("[$&+,:;=?@#|%]");
+            matcher = regex.matcher(inputName);
+            if (!matcher.find()) {               //Still good I guess
+                inputName = inputName.replace(" ", "%20");
+
+                return  inputName;
+            }
+
+            return  inputName;
+
+
+        }
+        // u fucked up now
+        inputName = "InvAlid";
 
 
         return inputName;
     }
 
+    void AssembleSummoner(String jsonString) {
+        JsonElement jelement = new JsonParser().parse(jsonString);
+
+        if (jelement.isJsonObject()) {
+
+            JsonObject jobject = jelement.getAsJsonObject();
+
+
+            String result = jobject.get("name").toString().replace("\"", "");
+            TextView mytext = (TextView)findViewById((R.id.tvSummonerName));
+            mytext.setText(result);
+            result = jobject.get("accountId").toString().replace("\"", "");
+            mytext = (TextView)findViewById((R.id.tvSummonerID));
+            mytext.setText(result);
+
+            final String myFinal = result;
+            Button btn = (Button)findViewById(R.id.btSearchSummonerGames);
+            btn.setVisibility(View.VISIBLE);
+            btn.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    Intent i=new Intent(SummonerSearch.this, MatchHistory.class);
+                    i.putExtra("acctID", myFinal);
+                    startActivity(i);
+
+                }
+            });
+        }
+    }
     //This should return a JSON or String of a summoner that we search for
     private class DownloadSummonerData extends AsyncTask<Void, Void, String> {
         private String Name;
@@ -81,6 +143,7 @@ public class SummonerSearch extends AppCompatActivity {
         }
 
 
+
         protected String doInBackground(Void... params) {
 
             HttpURLConnection connection = null;
@@ -92,6 +155,9 @@ public class SummonerSearch extends AppCompatActivity {
             String baseURL = "https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/";
             String endURL = "?api_key=RGAPI-5e745e86-76ad-45f6-b164-1a4f27aa3289";
             String src2 = baseURL + FormatInputString(Name) + endURL;
+            if(src2.contains("InvAlid")){
+                return "Invalid";
+            }
             try {
                 java.net.URL url = new URL(src2);
                 connection = (HttpURLConnection) url.openConnection();

@@ -24,6 +24,11 @@
         </activity>
 
         <activity
+            android:name=".MatchHistory">
+
+        </activity>
+
+        <activity
             android:name=".SelectActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

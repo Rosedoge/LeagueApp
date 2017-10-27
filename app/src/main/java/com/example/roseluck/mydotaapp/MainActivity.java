@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //DownloadFileASync
-
+    //Gets images, see Bitmap
     private class DownloadFilesTask extends AsyncTask<Void, Void, Bitmap> {
         private String URL;
         private int type;
