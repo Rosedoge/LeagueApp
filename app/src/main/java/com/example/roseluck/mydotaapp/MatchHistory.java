@@ -1,6 +1,7 @@
 package com.example.roseluck.mydotaapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,6 +9,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.gson.JsonArray;
@@ -34,6 +37,7 @@ public class MatchHistory extends AppCompatActivity {
     String bigOlJson;
     final List<String> champions = new ArrayList<String>();
     List<Bitmap> championImages = new ArrayList<Bitmap>();
+    List<String> selectedMatchID = new ArrayList<String>();
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.match_history);
@@ -66,7 +70,20 @@ public class MatchHistory extends AppCompatActivity {
         CustomListAdapter adapter=new CustomListAdapter(this, champions.toArray(new String[champions.size()]), championImages.toArray(new Bitmap[championImages.size()]));
         ListView list=(ListView)findViewById(R.id.liMatchList);
         list.setAdapter(adapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                // TODO Auto-generated method stub
+//                String Selecteditem= champions.get(position).toString();
+//                Toast.makeText(getApplicationContext(), Selecteditem, Toast.LENGTH_SHORT).show();
+                Intent i=new Intent(MatchHistory.this, IndividualMatchHistory.class);
+                i.putExtra("MatchID", selectedMatchID.get(position));
+                startActivity(i);
+
+            }
+        });
 
     }
 
@@ -86,6 +103,7 @@ public class MatchHistory extends AppCompatActivity {
                     champions.add(i,myString);
                     try{
                         championImages.add(i,new DownloadFilesTask(this,champions.get(i),i).execute().get());
+                        selectedMatchID.add(i, JobJect.getAsJsonPrimitive("gameId").getAsString());
                     }catch(InterruptedException e) {
 
                     }
@@ -248,7 +266,7 @@ public class MatchHistory extends AppCompatActivity {
 
             //https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/50222274/recent?api_key=RGAPI-5e745e86-76ad-45f6-b164-1a4f27aa3289
             String baseURL = "https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/";
-            String endURL = "/recent?api_key=RGAPI-5e745e86-76ad-45f6-b164-1a4f27aa3289";
+            String endURL = "/recent?api_key=RGAPI-dc98a5db-c341-4de2-9d7d-d33cc05f84d2";
             String src2 = baseURL + Id + endURL;
 
             try {

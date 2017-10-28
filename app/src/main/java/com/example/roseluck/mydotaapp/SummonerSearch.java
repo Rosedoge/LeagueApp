@@ -153,7 +153,7 @@ public class SummonerSearch extends AppCompatActivity {
             }
             //https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/TSM%20Roseluck?api_key=RGAPI-5e745e86-76ad-45f6-b164-1a4f27aa3289
             String baseURL = "https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/";
-            String endURL = "?api_key=RGAPI-5e745e86-76ad-45f6-b164-1a4f27aa3289";
+            String endURL = "?api_key=RGAPI-dc98a5db-c341-4de2-9d7d-d33cc05f84d2";
             String src2 = baseURL + FormatInputString(Name) + endURL;
             if(src2.contains("InvAlid")){
                 return "Invalid";

@@ -38,6 +38,5 @@ public class CustomListAdapter extends ArrayAdapter<String> {
         extratxt.setText("Description "+heronames[position]);
         return rowView;
 
-
     };
 }
