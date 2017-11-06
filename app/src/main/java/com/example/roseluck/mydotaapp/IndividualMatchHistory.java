@@ -1,15 +1,20 @@
 package com.example.roseluck.mydotaapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -75,15 +80,86 @@ public class IndividualMatchHistory extends AppCompatActivity {
 
         }
 
-
+        final String thismatchExtra = thisMatch;
         //Temporary
         Summoner[] books = {};
         GridView gridView = (GridView) findViewById(R.id.gvPlayers);
-        //String[] stockArr = new String[stockList.size()];
-        //stockArr = stockList.toArray(stockArr);
+
         MatchHeroAdapter booksAdapter = new MatchHeroAdapter(this, sumList.toArray(books));
         gridView.setAdapter(booksAdapter);
+        SetMatchHistory(thisMatch);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView parent, View view, int position, long id) {
+                Intent i=new Intent(IndividualMatchHistory.this, IndividualMatchPage.class);
+                i.putExtra("matchjson", thismatchExtra);
+                i.putExtra("position", position);
+                startActivity(i);
+            }
+        });
     }
+
+    public void SetMatchHistory(String jsonLine){
+        JsonElement jelement = new JsonParser().parse(jsonLine);
+
+        List<String> TeamThatGotIt = new ArrayList<String>();
+        if(jelement.isJsonObject()){
+            JsonObject jobject = jelement.getAsJsonObject();
+            JsonArray jArray = jobject.getAsJsonArray("teams");
+            JsonElement jsonobject = jArray.get(0);
+            JsonObject JobJect = jsonobject.getAsJsonObject();
+            if(JobJect.get("firstDragon").getAsBoolean()){
+                TeamThatGotIt.add(0, "Blue");
+                TextView myAwesomeTextView = (TextView)findViewById(R.id.tvfDragon);
+                myAwesomeTextView.setTextColor(Color.BLUE);
+            }else {
+                TeamThatGotIt.add(0, "Red");
+                TextView myAwesomeTextView = (TextView)findViewById(R.id.tvfDragon);
+                myAwesomeTextView.setTextColor(Color.RED);
+            }
+            if(JobJect.get("riftHeraldKills").getAsInt() < 0){
+              //Blue team killed Rift Herald
+                TeamThatGotIt.add(1, "Blue");
+                TextView myAwesomeTextView = (TextView)findViewById(R.id.tvFHerald);
+                myAwesomeTextView.setTextColor(Color.BLUE);
+            }
+            else
+            { //Blue team did not do it
+                jArray = jobject.getAsJsonArray("teams");
+                jsonobject = jArray.get(1);
+                JobJect = jsonobject.getAsJsonObject();
+                if (JobJect.get("riftHeraldKills").getAsInt() < 0) { //Red team killed Rift Herals
+                    TeamThatGotIt.add(1, "Red");
+                    TextView myAwesomeTextView = (TextView)findViewById(R.id.tvFHerald);
+                    myAwesomeTextView.setTextColor(Color.RED);
+                }else{
+                    TeamThatGotIt.add(1, "None");
+                }
+                //reset the shit from checking
+                jsonobject = jArray.get(0);
+                JobJect = jsonobject.getAsJsonObject();
+            }
+            //WinnerWinner Chicken Dinner
+                if(JobJect.get("win").getAsString().equals("Win")){
+                TeamThatGotIt.add(2, "Blue");
+                TextView myAwesomeTextView = (TextView)findViewById(R.id.tvWinner);
+                myAwesomeTextView.setTextColor(Color.BLUE);
+            }else{
+                TeamThatGotIt.add(2, "Red");
+                TextView myAwesomeTextView = (TextView)findViewById(R.id.tvWinner);
+                myAwesomeTextView.setTextColor(Color.RED);
+            }
+
+            // globally
+            TextView myAwesomeTextView = (TextView)findViewById(R.id.tvfDragon);
+            myAwesomeTextView.setText(TeamThatGotIt.get(0));
+            myAwesomeTextView = (TextView)findViewById(R.id.tvFHerald);
+            myAwesomeTextView.setText(TeamThatGotIt.get(1));
+            myAwesomeTextView = (TextView)findViewById(R.id.tvWinner);
+            myAwesomeTextView.setText(TeamThatGotIt.get(2));
+        }
+    }
+
 
     public Summoner GetParticipant(String jsonLine, int num) {
         Summoner curSum = new Summoner();
@@ -122,7 +198,7 @@ public class IndividualMatchHistory extends AppCompatActivity {
     }
 
 
-
+    //Downloads an Icon Bitmap
     private class DownloadIconBitmap extends AsyncTask<Void, Void, Bitmap> {
         ///
         private String URL;
@@ -164,7 +240,7 @@ public class IndividualMatchHistory extends AppCompatActivity {
             }
         }
     }
-
+    //Gets a summoner URL. Will need to be updated if, god forbid, anyone ever makes a new summoner spell
     public String GetRealSummonerURL( String URL){
 
         switch( URL){
@@ -216,7 +292,7 @@ public class IndividualMatchHistory extends AppCompatActivity {
 
         DownloadAbilityBitmap(Context context, String Url, int Type)
         {
-            //TODO decode the summoner spell that is sent
+
 
             URL = Url;
             type = Type;
@@ -303,7 +379,7 @@ public class IndividualMatchHistory extends AppCompatActivity {
 
             //https://na1.api.riotgames.com/lol/match/v3/matchlists/by-account/50222274/recent?api_key=RGAPI-5e745e86-76ad-45f6-b164-1a4f27aa3289
             String baseURL = "https://na1.api.riotgames.com/lol/match/v3/matches/";
-            String endURL = "?api_key=RGAPI-efe5c0c6-f0d9-4c4c-8e81-ab73deb25804";
+            String endURL = "?api_key=RGAPI-20548e97-e82d-4907-b875-365869748d76";
             String src2 = baseURL + Id + endURL;
 
             try {

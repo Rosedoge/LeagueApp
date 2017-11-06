@@ -17,7 +17,10 @@
             android:name=".ChampionPage">
 
         </activity>
+        <activity
+            android:name=".IndividualMatchPage">
 
+        </activity>
         <activity
             android:name=".IndividualMatchHistory">
 

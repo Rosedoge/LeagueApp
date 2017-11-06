@@ -35,7 +35,7 @@ public class SummonerSearch extends AppCompatActivity {
 
     //Donut Steele plz
 
-    private String APIKey = "RGAPI-efe5c0c6-f0d9-4c4c-8e81-ab73deb25804";
+
 
 
     //Summoner searrch = https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/TSM%20Roseluck?api_key=RGAPI-5e745e86-76ad-45f6-b164-1a4f27aa3289
@@ -153,7 +153,7 @@ public class SummonerSearch extends AppCompatActivity {
             }
             //https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/TSM%20Roseluck?api_key=RGAPI-5e745e86-76ad-45f6-b164-1a4f27aa3289
             String baseURL = "https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/";
-            String endURL = "?api_key=RGAPI-efe5c0c6-f0d9-4c4c-8e81-ab73deb25804";
+            String endURL = "?api_key=RGAPI-20548e97-e82d-4907-b875-365869748d76";
             String src2 = baseURL + FormatInputString(Name) + endURL;
             if(src2.contains("InvAlid")){
                 return "Invalid";

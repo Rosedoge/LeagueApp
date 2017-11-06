@@ -51,15 +51,15 @@ public class MatchHeroAdapter extends BaseAdapter {
         }
 
         // 3
-        final ImageView imageView = (ImageView)convertView.findViewById(R.id.tvSummonerIcon);
+        final ImageView imageView = (ImageView)convertView.findViewById(R.id.ivSummonerIcon);
         final TextView nameTextView = (TextView)convertView.findViewById(R.id.tvSummonerName);
 
-        final ImageView summonerspell1 = (ImageView)convertView.findViewById(R.id.ivSummonerSpell1);
-        final ImageView summonerspell2 = (ImageView)convertView.findViewById(R.id.ivSummonerSpell2);
+        final ImageView summonerspell1 = (ImageView)convertView.findViewById(R.id.ivSS1);
+      //  final ImageView summonerspell2 = (ImageView)convertView.findViewById(R.id.ivSummonerSpell2);
         // 4
         imageView.setImageBitmap(book.mySummonerIcon);
         summonerspell1.setImageBitmap(book.summonerSpell1);
-        summonerspell2.setImageBitmap(book.summonerSpell2);
+
         nameTextView.setText(book.mySummonerName);
 //        authorTextView.setText(mContext.getString(book.getAuthor()));
 

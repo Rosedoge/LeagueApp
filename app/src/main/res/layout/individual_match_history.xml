@@ -8,21 +8,136 @@
 
     <GridView
         android:id="@+id/gvPlayers"
-        android:layout_width="358dp"
-        android:layout_height="165dp"
+        android:layout_width="0dp"
+        android:layout_height="221dp"
         android:gravity="center"
         android:columnWidth="100dp"
         android:numColumns="auto_fit"
         android:verticalSpacing="24dp"
         android:horizontalSpacing="10dp"
         android:stretchMode="spacingWidthUniform"
-        android:layout_marginRight="8dp"
+        android:layout_marginRight="25dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="25dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
-        app:layout_constraintVertical_bias="0.024" />
+        app:layout_constraintVertical_bias="0.024"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintLeft_creator="1" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Brief Match Stats"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gvPlayers"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintLeft_creator="1" />
+
+    <TextView
+        android:id="@+id/tvfDragon"
+        android:layout_width="93dp"
+        android:layout_height="59dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="189dp"
+        android:text="1st Dragon"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintHorizontal_bias="0.779"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gvPlayers"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
+    <TextView
+        android:id="@+id/tvFHerald"
+        android:layout_width="91dp"
+        android:layout_height="62dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="112dp"
+        android:text="1st Herald"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintHorizontal_bias="0.742"
+        app:layout_constraintLeft_toLeftOf="@+id/textView9"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gvPlayers"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="93dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="246dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="47dp"
+        android:text="Winner:"
+        android:textSize="24sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gvPlayers"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
+    <TextView
+        android:id="@+id/tvWinner"
+        android:layout_width="92dp"
+        android:layout_height="46dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="47dp"
+        android:text="Winner:"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintHorizontal_bias="0.768"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gvPlayers"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="91dp"
+        android:layout_height="62dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="112dp"
+        android:text="1st Herald"
+        android:textSize="24sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gvPlayers"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="93dp"
+        android:layout_height="59dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="189dp"
+        android:text="1st Dragon"
+        android:textSize="24sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gvPlayers"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
 </android.support.constraint.ConstraintLayout>

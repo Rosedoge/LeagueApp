@@ -78,9 +78,9 @@ public class MainActivity extends AppCompatActivity {
         returnedJSON = loadJSONFromAsset();
 
 
-        // Construct the data source
+
         ArrayList<Hero> arrayOfUsers = new ArrayList<Hero>();
-// Create the adapter to convert the array to Hero
+
 
 
         JsonParser jsonParser = new JsonParser();
